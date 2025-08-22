@@ -12,6 +12,9 @@ import { createBrowserRouter, Navigate } from "react-router";
 import { adminSidebarItems } from "./adminSidebarItems";
 import { agentSidebarItems } from "./agentSidebarItems";
 import { userSidebarItems } from "./userSidebarItems";
+import Features from "@/pages/Features";
+import FAQ from "@/pages/FAQ";
+import Contact from "@/pages/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +32,18 @@ export const router = createBrowserRouter([
       {
         path: "register",
         Component: Register,
+      },
+      {
+        path: "features",
+        Component: Features,
+      },
+      {
+        path: "faq",
+        Component: FAQ,
+      },
+      {
+        path: "contact",
+        Component: Contact,
       },
     ],
   },

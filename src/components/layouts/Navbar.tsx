@@ -19,6 +19,18 @@ import UserMenu from "../user-menu";
 const navigationLinks = [
   { href: "/", label: "Home" },
   { href: "about", label: "About" },
+  {
+    href: "features",
+    label: "Features ",
+  },
+  {
+    href: "contact",
+    label: "Contact",
+  },
+  {
+    href: "faq",
+    label: "FAQ",
+  },
 ];
 
 export default function Navbar() {
