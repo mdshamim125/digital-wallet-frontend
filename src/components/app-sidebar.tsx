@@ -15,13 +15,15 @@ import {
 import Logo from "@/assets/icons/Logo";
 import { Link } from "react-router";
 import { getSidebarItems } from "@/utils/getSidebarItems";
+import { role } from "@/constants/role";
+import type { TRole } from "@/type";
 
 // This is sample data.
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   // const { data: userData } = useUserInfoQuery(undefined);
   const data = {
-    navMain: getSidebarItems("ADMIN"),
+    navMain: getSidebarItems(role.user as TRole),
   };
 
   return (

@@ -13,26 +13,44 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Password from "@/components/ui/Password";
 import { useRegisterMutation } from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
-import config from "@/config";
+import { role } from "@/constants/role";
+// import config from "@/config";
 const registerSchema = z
   .object({
     name: z
       .string()
       .min(3, {
-        error: "Name is too short",
+        error: "Name requires at least 3 characters",
       })
       .max(50),
     email: z.email(),
-    password: z.string().min(8, { error: "Password is too short" }),
+    password: z
+      .string()
+      .min(6, { message: "Password must be at least 6 digits" })
+      .regex(/^\d+$/, { message: "Password must contain only numbers" }),
     confirmPassword: z
       .string()
-      .min(8, { error: "Confirm Password is too short" }),
+      .min(6, { message: "Confirm Password must be at least 6 digits" })
+      .regex(/^\d+$/, {
+        message: "Confirm Password must contain only numbers",
+      }),
+    role: z.string({
+      message: "Please select your role",
+    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Password do not match",
@@ -53,6 +71,7 @@ export function RegisterForm({
       email: "",
       password: "",
       confirmPassword: "",
+      role: role.user,
     },
   });
 
@@ -64,21 +83,23 @@ export function RegisterForm({
       name: values.name,
       email: values.email,
       password: values.password,
+      role: values.role,
     };
     try {
       const result = await register(userInfo).unwrap();
       console.log(result);
       toast.success("User Created Successfully");
-      navigate("/verify", { state: userInfo.email });
+      navigate("/login");
+      // navigate("/verify", { state: userInfo.email });
     } catch (error) {
       console.log(error);
       toast.error("Failed to create user");
     }
   }
 
-  const handleGoogleLogin = () => {
-    window.location.href = `${config.baseUrl}/auth/google`;
-  };
+  // const handleGoogleLogin = () => {
+  //   window.location.href = `${config.baseUrl}/auth/google`;
+  // };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -135,6 +156,33 @@ export function RegisterForm({
                   />
                   <FormField
                     control={form.control}
+                    name="role"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Role</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a verified email to display" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="user">user</SelectItem>
+                            <SelectItem value="agent">agent</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormDescription className="sr-only">
+                          This is your role.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
                     name="password"
                     render={({ field }) => (
                       <FormItem>
@@ -171,11 +219,11 @@ export function RegisterForm({
                 </form>
               </Form>
               <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-                <span className="bg-card text-muted-foreground relative z-10 px-2">
+                {/* <span className="bg-card text-muted-foreground relative z-10 px-2">
                   Or continue with
-                </span>
+                </span> */}
               </div>
-              <div className="w-full">
+              {/* <div className="w-full">
                 <Button
                   onClick={handleGoogleLogin}
                   variant="outline"
@@ -191,7 +239,7 @@ export function RegisterForm({
                   </svg>
                   <span className="sr-only">Register with Google</span>
                 </Button>
-              </div>
+              </div> */}
               <div className="text-center text-sm">
                 Don you have any account?{" "}
                 <Link to="/login" className="underline underline-offset-4">

@@ -19,7 +19,7 @@ import { z } from "zod";
 import Password from "@/components/ui/Password";
 import { useLoginMutation } from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
-import config from "@/config";
+// import config from "@/config";
 
 const formSchema = z.object({
   email: z.email(),
@@ -58,47 +58,14 @@ export function LoginForm({
         navigate("/");
       }
     } catch (err) {
+      toast.error("Login failed. Please check your credentials.");
       console.error(err);
-
-      // if (err.data.message === "User does not exist") {
-      //   toast.error("User does not exist");
-      //   return;
-      // }
-
-      // if (err.data.message === "Missing credentials") {
-      //   toast.error("Please enter your email and password");
-      //   return;
-      // }
-
-      // if (
-      //   err.data.message ===
-      //   "You have authenticated through Google. So if you want to login with credentials, then at first login with google and set a password for your Gmail and then you can login with email and password."
-      // ) {
-      //   toast.error(
-      //     "You have authenticated through Google. Please login with Google."
-      //   );
-      //   return;
-      // }
-
-      // if (err.data.message === "Password does not match") {
-      //   toast.error("Invalid credentials");
-      //   return;
-      // }
-
-      if (err.data.message === "Password does not match") {
-        toast.error("Invalid credentials");
-      }
-
-      if (err.data.message === "User is not verified") {
-        toast.error("Your account is not verified");
-        navigate("/verify", { state: userInfo.email });
-      }
     }
   }
 
-  const handleGoogleLogin = () => {
-    window.location.href = `${config.baseUrl}/auth/google`;
-  };
+  // const handleGoogleLogin = () => {
+  //   window.location.href = `${config.baseUrl}/auth/google`;
+  // };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -159,11 +126,11 @@ export function LoginForm({
                 </form>
               </Form>
               <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-                <span className="bg-card text-muted-foreground relative z-10 px-2">
+                {/* <span className="bg-card text-muted-foreground relative z-10 px-2">
                   Or continue with
-                </span>
+                </span> */}
               </div>
-              <div className="w-full">
+              {/* <div className="w-full">
                 <Button
                   onClick={handleGoogleLogin}
                   variant="outline"
@@ -179,7 +146,7 @@ export function LoginForm({
                   </svg>
                   <span className="sr-only">Login with Google</span>
                 </Button>
-              </div>
+              </div> */}
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
                 <Link to="/register" className="underline underline-offset-4">
