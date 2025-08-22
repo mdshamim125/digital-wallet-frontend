@@ -13,22 +13,26 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import Logo from "@/assets/icons/Logo";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { getSidebarItems } from "@/utils/getSidebarItems";
-import { role } from "@/constants/role";
 import type { TRole } from "@/type";
+import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 
 // This is sample data.
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  // const { data: userData } = useUserInfoQuery(undefined);
+  const { data: userInfo } = useUserInfoQuery(undefined);
+  const navigate = useNavigate();
   const data = {
-    navMain: getSidebarItems(role.user as TRole),
+    navMain: getSidebarItems(userInfo?.data?.role as TRole),
   };
-
+  console.log("Sidebar userInfo:", userInfo);
+  const handleGoHome = () => {
+    navigate("/");
+  };
   return (
     <Sidebar {...props}>
-      <SidebarHeader>
+      <SidebarHeader className="m-4" onClick={handleGoHome}>
         <Logo />
       </SidebarHeader>
       <SidebarContent>
