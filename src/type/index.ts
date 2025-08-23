@@ -16,3 +16,5 @@ export interface ISidebarItem {
 }
 
 export type TRole = "admin" | "agent" | "user";
+export type TUserStatus = "active" | "blocked";
+export type TAgentStatus = "approved" | "suspended";

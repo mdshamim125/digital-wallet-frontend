@@ -31,8 +31,9 @@ export const userApi = baseApi.injectEndpoints({
       query: ({ id, statusInfo }) => ({
         url: `/user/status-update/${id}`,
         method: "PATCH",
-        body: statusInfo,
+        data: statusInfo,
       }),
+      invalidatesTags: ["User"],
     }),
   }),
 });
