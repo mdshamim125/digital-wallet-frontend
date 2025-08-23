@@ -61,9 +61,10 @@ export const transactionApi = baseApi.injectEndpoints({
     //admin api
     //Get all transactions
     AllTransactionHistory: builder.query({
-      query: () => ({
+      query: (params: Record<string, string>) => ({
         url: "/transaction/all-transactions",
         method: "GET",
+        params, // Pass filters, pagination, search as query params
       }),
     }),
   }),
