@@ -1,6 +1,7 @@
 import AdminOverview from "@/pages/admin/AdminOverview";
 import ManageAgents from "@/pages/admin/ManageAgents";
 import ManageUsers from "@/pages/admin/ManageUsers";
+import Profile from "@/pages/admin/Profile";
 import ViewTransactions from "@/pages/admin/ViewTransactions";
 import type { ISidebarItem } from "@/type";
 
@@ -9,14 +10,19 @@ export const adminSidebarItems: ISidebarItem[] = [
     title: "Admin Dashboard",
     items: [
       {
-        title: "overview",
+        title: "Overview",
         url: "/admin/overview",
         component: AdminOverview,
       },
       {
-        title: "transactions",
+        title: "Transactions",
         url: "/admin/transactions",
         component: ViewTransactions,
+      },
+      {
+        title: "Profile",
+        url: "/admin/profile",
+        component: Profile,
       },
     ],
   },
