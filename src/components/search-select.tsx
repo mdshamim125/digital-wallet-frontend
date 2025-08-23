@@ -86,7 +86,7 @@ export default function SearchSelect({ value, onChange }: any) {
           <Command>
             <CommandInput placeholder="Search framework..." />
             <CommandList>
-              <CommandEmpty>No framework found.</CommandEmpty>
+              <CommandEmpty>No User Found!</CommandEmpty>
               <CommandGroup>
                 {userOptions.map((fw: any) => (
                   <CommandItem

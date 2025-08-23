@@ -1,4 +1,4 @@
-import { TransactionForm } from "@/components/modules/user/TransactionForm";
+import { TransactionForm } from "@/components/modules/dashboard/TransactionForm";
 import { useCashInMutation } from "@/redux/features/transaction/transaction.api";
 
 export default function WithdrawMoney() {
@@ -6,7 +6,7 @@ export default function WithdrawMoney() {
 
   return (
     <TransactionForm
-      title="Add money to a user’s wallet"
+      title="Add Money to a user’s wallet"
       description="Enter the amount and select an user account"
       actionLabel="Cash In"
       useMutationHook={() => [trigger, result]}

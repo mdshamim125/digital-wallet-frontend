@@ -1,4 +1,4 @@
-import { TransactionForm } from "@/components/modules/user/TransactionForm";
+import { TransactionForm } from "@/components/modules/dashboard/TransactionForm";
 import { useWithdrawMoneyByUserMutation } from "@/redux/features/transaction/transaction.api";
 
 export default function WithdrawMoney() {
