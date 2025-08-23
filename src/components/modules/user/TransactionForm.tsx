@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,8 +21,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import SearchSelect from "@/components/search-select";
-import { useAddMoneyByUserMutation } from "@/redux/features/transaction/transaction.api";
 import { toast } from "sonner";
+import type { useWithdrawMoneyByUserMutation } from "@/redux/features/transaction/transaction.api";
 
 const FormSchema = z.object({
   amount: z
@@ -30,8 +31,21 @@ const FormSchema = z.object({
   account: z.string().nonempty("Please select an account"),
 });
 
-export function DepositMoney() {
-  const [addMoney] = useAddMoneyByUserMutation();
+type TransactionFormProps = {
+  title: string;
+  description: string;
+  actionLabel: string;
+  // useMutationHook: () => [(data: any) => Promise<any>, { isLoading?: boolean }];
+  useMutationHook: () => ReturnType<typeof useWithdrawMoneyByUserMutation>;
+};
+
+export function TransactionForm({
+  title,
+  description,
+  actionLabel,
+  useMutationHook,
+}: TransactionFormProps) {
+  const [mutate] = useMutationHook();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -42,29 +56,30 @@ export function DepositMoney() {
   });
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
-    console.log("Deposit Data:", data);
-    const depositData = {
+    const payload = {
       amount: data.amount,
       id: data.account,
     };
+
     try {
-      const response = await addMoney(depositData).unwrap();
-      console.log("Deposit successful:", response);
-      toast.success("Deposit successful");
+      const response = await mutate(payload).unwrap();
+      console.log(`${actionLabel} successful:`, response);
+      toast.success(`${actionLabel} successful`);
       form.reset();
     } catch (error) {
-      console.error("Deposit failed:", error);
-      toast.error((error as { data?: { message?: string } })?.data?.message || "Deposit failed");
+      console.error(`${actionLabel} failed:`, error);
+      toast.error(
+        (error as { data?: { message?: string } })?.data?.message ||
+          `${actionLabel} failed. Please try again.`
+      );
     }
   };
 
   return (
     <Card className="w-full max-w-md mx-auto mt-6">
       <CardHeader>
-        <CardTitle>Deposit money (via agent cash-in simulation)</CardTitle>
-        <CardDescription>
-          Enter the amount and select an account to deposit
-        </CardDescription>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
 
       <Form {...form}>
@@ -108,7 +123,7 @@ export function DepositMoney() {
 
           <CardFooter className="flex mt-4 flex-col gap-2">
             <Button type="submit" className="w-full">
-              Deposit
+              {actionLabel}
             </Button>
           </CardFooter>
         </form>

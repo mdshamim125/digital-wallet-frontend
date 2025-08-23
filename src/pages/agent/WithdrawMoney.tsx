@@ -1,10 +1,15 @@
+import { TransactionForm } from "@/components/modules/user/TransactionForm";
+import { useCashOutMutation } from "@/redux/features/transaction/transaction.api";
 
-const WithdrawMoney = () => {
-    return (
-        <div>
-            WithdrawMoney
-        </div>
-    );
-};
+export default function WithdrawMoney() {
+  const [trigger, result] = useCashOutMutation();
 
-export default WithdrawMoney;
+  return (
+    <TransactionForm
+      title="Withdraw money from a user’s wallet"
+      description="Enter the amount and select an user account"
+      actionLabel="Withdraw"
+      useMutationHook={() => [trigger, result]}
+    />
+  );
+}
