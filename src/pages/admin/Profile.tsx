@@ -88,7 +88,7 @@ export default function Profile() {
 
   return (
     <div className="w-full mt-6 md:w-1/2 mx-auto bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-2xl shadow-lg p-6 transition-colors duration-300">
-      <h2 className="text-xl font-semibold mb-6">Profile Settings</h2>
+      <h2 className="text-xl font-semibold mb-6">Manage Your Profile</h2>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>

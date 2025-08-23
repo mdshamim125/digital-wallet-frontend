@@ -3,6 +3,7 @@ import type { ISidebarItem } from "@/type";
 import AddMoney from "@/pages/agent/AddMoney";
 import WithdrawMoney from "@/pages/agent/WithdrawMoney";
 import ViewTransactions from "@/pages/agent/ViewTransactions";
+import AgentProfile from "@/pages/agent/AgentProfile";
 
 export const agentSidebarItems: ISidebarItem[] = [
   {
@@ -27,6 +28,11 @@ export const agentSidebarItems: ISidebarItem[] = [
         title: "Transaction History",
         url: "/agent/transaction-history",
         component: ViewTransactions,
+      },
+      {
+        title: "Profile",
+        url: "/agent/profile",
+        component: AgentProfile,
       },
     ],
   },
