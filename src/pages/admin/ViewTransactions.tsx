@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
@@ -12,6 +13,17 @@ import {
 } from "@/components/ui/select";
 import { useAllTransactionHistoryQuery } from "@/redux/features/transaction/transaction.api";
 import { toast } from "sonner";
+
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { Filter } from "lucide-react";
 
 interface FilterForm {
   searchTerm: string;
@@ -59,7 +71,11 @@ export default function ViewTransactions() {
     if (values.maxAmount.trim() !== "")
       payload.maxAmount = Number(values.maxAmount.trim());
 
-    setFilters(payload);
+    setFilters(
+      Object.fromEntries(
+        Object.entries(payload).map(([key, value]) => [key, String(value)])
+      )
+    );
     setPage(1); // reset page to 1 after filtering
   };
 
@@ -89,14 +105,16 @@ export default function ViewTransactions() {
       {/* Filter Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6"
+        className="grid grid-cols-1 md:grid-cols-6 gap-3 items-center bg-gray-100 dark:bg-gray-800 p-4 rounded-xl mb-6 shadow-sm"
       >
+        {/* Search Bar */}
         <Input
           {...register("searchTerm")}
-          placeholder="Search by ID, From, To..."
-          className="col-span-1 md:col-span-2"
+          placeholder="Search ID, From, To..."
+          className="md:col-span-2"
         />
 
+        {/* Type Select */}
         <Controller
           control={control}
           name="type"
@@ -117,31 +135,35 @@ export default function ViewTransactions() {
           )}
         />
 
-        <div className="flex space-x-2 col-span-1 md:col-span-1">
-          <Input
-            {...register("minAmount")}
-            placeholder="Min Amount"
-            type="number"
-            onKeyDown={(e) => e.key === "Enter" && e.preventDefault()}
-          />
-          <Input
-            {...register("maxAmount")}
-            placeholder="Max Amount"
-            type="number"
-            onKeyDown={(e) => e.key === "Enter" && e.preventDefault()}
-          />
-        </div>
+        {/* Min Amount */}
+        <Input
+          {...register("minAmount")}
+          placeholder="Min Amount"
+          type="number"
+          min={0} // prevent negative numbers
+          className="w-full"
+        />
 
+        {/* Max Amount */}
+        <Input
+          {...register("maxAmount")}
+          placeholder="Max Amount"
+          type="number"
+          min={0} // prevent negative numbers
+          className="w-full"
+        />
+
+        {/* Filter Button */}
         <Button
           type="submit"
-          className="col-span-1 md:col-span-1 bg-blue-600 hover:bg-blue-700 text-white"
+          className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white"
         >
-          Filter
+          <Filter size={18} /> Filter
         </Button>
       </form>
 
       {/* Transactions Table */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto min-h-[400px]">
         <table className="w-full border-collapse border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white">
           <thead className="bg-gray-100 dark:bg-gray-800">
             <tr>
@@ -190,16 +212,62 @@ export default function ViewTransactions() {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-between items-center mt-4">
-        <span>
-          Page {page} of {totalPage ?? "..."}
-        </span>
-        <Button disabled={page <= 1 || !totalPage} onClick={handlePrevious}>
-          Previous
-        </Button>
-        <Button disabled={!totalPage || page >= totalPage} onClick={handleNext}>
-          Next
-        </Button>
+      <div className="flex justify-center mt-6">
+        <Pagination>
+          <PaginationContent>
+            {/* Previous Button */}
+            <PaginationItem>
+              <PaginationPrevious
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (page > 1) handlePrevious();
+                }}
+                className={page <= 1 ? "pointer-events-none opacity-50" : ""}
+              />
+            </PaginationItem>
+
+            {/* Page Numbers */}
+            {[...Array(totalPage)].map((_, i) => {
+              const pageNumber = i + 1;
+              return (
+                <PaginationItem key={pageNumber}>
+                  <PaginationLink
+                    href="#"
+                    isActive={page === pageNumber}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setPage(pageNumber);
+                    }}
+                  >
+                    {pageNumber}
+                  </PaginationLink>
+                </PaginationItem>
+              );
+            })}
+
+            {/* Ellipsis if too many pages */}
+            {totalPage > 5 && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+
+            {/* Next Button */}
+            <PaginationItem>
+              <PaginationNext
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (page < totalPage) handleNext();
+                }}
+                className={
+                  page >= totalPage ? "pointer-events-none opacity-50" : ""
+                }
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     </div>
   );
