@@ -51,10 +51,12 @@ export const transactionApi = baseApi.injectEndpoints({
     }),
 
     //Transaction history
+    // Transaction history (for a single user, but with filters/pagination support)
     transactionHistory: builder.query({
-      query: () => ({
+      query: (params: Record<string, string>) => ({
         url: "/transaction/transactions",
         method: "GET",
+        params,
       }),
     }),
 
