@@ -24,7 +24,7 @@ const LineChartComponent: React.FC<LineChartProps> = ({ data }) => {
 
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <LineChart data={data}>
+      <LineChart id="chart-section" data={data}>
         <XAxis
           dataKey="week"
           tickFormatter={(week) => new Date(week).toLocaleDateString()}

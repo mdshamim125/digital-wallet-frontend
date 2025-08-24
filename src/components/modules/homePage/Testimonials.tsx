@@ -21,7 +21,7 @@ const reviews = [
 
 export default function Testimonials() {
   return (
-    <section className="py-16 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <section id="why-choose-us" className="py-16 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-6xl mx-auto text-center px-6">
         <h2 className="text-3xl font-bold mb-10 text-gray-900 dark:text-gray-100">
           What Our Clients Say

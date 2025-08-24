@@ -89,7 +89,7 @@ export default function TransactionHistory() {
       </h2>
 
       {/* Filter Form */}
-      <form
+      <form id="table-filter"
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-1 md:grid-cols-6 gap-3 items-center bg-gray-100 dark:bg-gray-800 p-4 rounded-xl mb-6 shadow-sm"
       >

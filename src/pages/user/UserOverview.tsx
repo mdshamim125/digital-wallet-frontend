@@ -15,7 +15,7 @@ export default function UserOverview() {
   return (
     <div className="p-6 grid gap-6 md:grid-cols-3">
       {/* Wallet Balance */}
-      <Card className="col-span-3 md:col-span-1 shadow-lg rounded-2xl">
+      <Card id="stats-cards" className="col-span-3 md:col-span-1 shadow-lg rounded-2xl">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg font-semibold">
             <Wallet className="w-6 h-6 text-blue-600" />

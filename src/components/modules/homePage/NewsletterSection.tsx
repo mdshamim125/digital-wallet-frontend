@@ -22,7 +22,7 @@ export default function NewsletterSection() {
   return (
     <section className="py-16 bg-blue-50 dark:bg-gray-900 transition-colors duration-500">
       <div className="max-w-3xl mx-auto px-6 text-center">
-        <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-gray-100 transition-colors duration-500">
+        <h2 id="subscribe-us" className="text-3xl font-bold mb-4 text-gray-900 dark:text-gray-100 transition-colors duration-500">
           Stay Updated
         </h2>
         <p className="mb-6 text-gray-700 dark:text-gray-300 transition-colors duration-500">
