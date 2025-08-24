@@ -15,12 +15,18 @@ import { userSidebarItems } from "./userSidebarItems";
 import Features from "@/pages/Features";
 import FAQ from "@/pages/FAQ";
 import Contact from "@/pages/Contact";
+import NotFound from "@/components/NotFound";
+import Home from "@/pages/Home";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: App,
     children: [
+      {
+        path: "/",
+        Component: Home,
+      },
       {
         path: "about",
         Component: About,
@@ -76,4 +82,5 @@ export const router = createBrowserRouter([
     path: "/verify",
     Component: Verify,
   },
+  { path: "*", Component: NotFound },
 ]);
