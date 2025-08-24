@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BookOpenIcon, LogInIcon, LogOutIcon, UserPenIcon } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -43,7 +44,7 @@ export default function UserMenu() {
   const name = userInfo?.data?.name || "";
   const nameLetter = name
     .split(" ")
-    .map((word) => word[0])
+    .map((word: any) => word[0])
     .join("");
 
   console.log(nameLetter);
@@ -55,6 +56,16 @@ export default function UserMenu() {
       navigate("/agent");
     } else {
       navigate("/user"); // default user dashboard
+    }
+  };
+
+  const handleProfileRedirect = () => {
+    if (userInfo?.data?.role === "admin") {
+      navigate("/admin/profile");
+    } else if (userInfo?.data?.role === "agent") {
+      navigate("/agent/profile");
+    } else {
+      navigate("/user/profile");
     }
   };
 
@@ -93,7 +104,7 @@ export default function UserMenu() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           {userInfo?.data?.email && (
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleProfileRedirect}>
               <UserPenIcon
                 size={16}
                 className="opacity-60"
