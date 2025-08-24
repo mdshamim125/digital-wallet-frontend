@@ -43,6 +43,14 @@ export const userApi = baseApi.injectEndpoints({
       }),
       providesTags: ["User"],
     }),
+
+    getAgentOverview: builder.query({
+      query: () => ({
+        url: "/user/agent-overview",
+        method: "GET",
+      }),
+      providesTags: ["User"],
+    }),
   }),
 });
 
@@ -52,4 +60,5 @@ export const {
   useUpdateProfileMutation,
   useUpdateStatusMutation,
   useGetUserOverviewQuery,
+  useGetAgentOverviewQuery,
 } = userApi;
