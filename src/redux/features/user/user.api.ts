@@ -51,6 +51,13 @@ export const userApi = baseApi.injectEndpoints({
       }),
       providesTags: ["User"],
     }),
+    getAdminOverview: builder.query({
+      query: () => ({
+        url: "/user/admin-overview",
+        method: "GET",
+      }),
+      providesTags: ["User"],
+    }),
   }),
 });
 
@@ -61,4 +68,5 @@ export const {
   useUpdateStatusMutation,
   useGetUserOverviewQuery,
   useGetAgentOverviewQuery,
+  useGetAdminOverviewQuery,
 } = userApi;
