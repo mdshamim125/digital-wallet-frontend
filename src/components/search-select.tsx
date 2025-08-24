@@ -24,7 +24,7 @@ import { useGetAllUsersQuery } from "@/redux/features/user/user.api";
  */
 export default function SearchSelect({ value, onChange }: any) {
   const { data: usersInfo } = useGetAllUsersQuery(null);
-  console.log(usersInfo?.data);
+  // console.log(usersInfo?.data);
 
   const userOptions =
     usersInfo?.data?.map((user: any) => ({
@@ -32,7 +32,7 @@ export default function SearchSelect({ value, onChange }: any) {
       label: user.email + "(" + user.role + ")",
     })) || [];
 
-  console.log(userOptions);
+  // console.log(userOptions);
 
   const id = useId();
   const [open, setOpen] = useState(false);

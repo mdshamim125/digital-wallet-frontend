@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import loginImage from "@/assets/images/login.jpg";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import {
   Form,
   FormControl,
@@ -32,6 +32,8 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const [login] = useLoginMutation();
   const navigate = useNavigate();
+   const location = useLocation();
+    const from = (location.state as { from?: Location })?.from?.pathname || "/";
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -50,12 +52,12 @@ export function LoginForm({
       email: values.email,
       password: values.password,
     };
-    console.log(userInfo);
+    // console.log(userInfo);
     try {
       const result = await login(userInfo).unwrap();
       if (result.success) {
         toast.success("Logged in successfully");
-        navigate("/");
+        navigate(from, { replace: true });
       }
     } catch (err) {
       toast.error("Login failed. Please check your credentials.");

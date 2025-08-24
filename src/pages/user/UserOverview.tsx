@@ -4,18 +4,30 @@ import { Button } from "@/components/ui/button";
 import { ArrowDownCircle, ArrowUpCircle, Send, Wallet } from "lucide-react";
 import { useGetUserOverviewQuery } from "@/redux/features/user/user.api";
 import { Link } from "react-router";
+import SkeletonCard from "@/components/SkeletonCard";
+import SkeletonTable from "@/components/SkeletonTable";
 
 export default function UserOverview() {
-  const { data } = useGetUserOverviewQuery(null);
+  const { data, isLoading } = useGetUserOverviewQuery(null);
 
-  console.log(data);
+  // console.log(data);
 
-  if (!data) return <p className="text-center py-10">Loading dashboard...</p>;
+  if (isLoading) {
+    return (
+      <div className="flex flex-col">
+        <SkeletonCard />
+        <SkeletonTable />
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 grid gap-6 md:grid-cols-3">
       {/* Wallet Balance */}
-      <Card id="stats-cards" className="col-span-3 md:col-span-1 shadow-lg rounded-2xl">
+      <Card
+        id="stats-cards"
+        className="col-span-3 md:col-span-1 shadow-lg rounded-2xl"
+      >
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg font-semibold">
             <Wallet className="w-6 h-6 text-blue-600" />

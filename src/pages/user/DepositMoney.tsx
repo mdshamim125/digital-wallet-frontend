@@ -42,7 +42,7 @@ export function DepositMoney() {
   });
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
-    console.log("Deposit Data:", data);
+    // console.log("Deposit Data:", data);
     const depositData = {
       amount: data.amount,
       id: data.account,

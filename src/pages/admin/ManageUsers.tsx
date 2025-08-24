@@ -27,7 +27,7 @@ export default function ManageUsers() {
   const handleUpdateStatus = async (id: string, currentStatus: string) => {
     try {
       const newStatus = currentStatus === "active" ? "blocked" : "active";
-      console.log(newStatus, id);
+      // console.log(newStatus, id);
       const res = await updateStatus({
         id,
         statusInfo: { userStatus: newStatus },

@@ -83,4 +83,5 @@ export const router = createBrowserRouter([
     Component: Verify,
   },
   { path: "*", Component: NotFound },
+  { path: "/unauthorized", Component: NotFound },
 ]);

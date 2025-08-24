@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
@@ -24,6 +23,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Filter } from "lucide-react";
+import SkeletonTable from "@/components/SkeletonTable";
 
 interface FilterForm {
   searchTerm: string;
@@ -56,7 +56,7 @@ export default function ViewTransactions() {
 
   //   console.log(data?.data?.data)
   const transactionData = data?.data?.data;
-  console.log(data?.data);
+  console.log(setLimit);
 
   const onSubmit = (values: FilterForm) => {
     const payload: Record<string, string | number> = {};
@@ -95,6 +95,10 @@ export default function ViewTransactions() {
     if (!totalPage) return;
     setPage((prev) => Math.min(prev + 1, totalPage));
   };
+
+  if (isLoading) {
+    return <SkeletonTable />;
+  }
 
   return (
     <div className="p-6 bg-white dark:bg-gray-900 rounded-2xl shadow-lg">

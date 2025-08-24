@@ -26,7 +26,7 @@ export default function UserMenu() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  console.log("user info:", userInfo);
+  // console.log("user info:", userInfo);
 
   const handleLogout = async () => {
     try {
@@ -47,7 +47,7 @@ export default function UserMenu() {
     .map((word: any) => word[0])
     .join("");
 
-  console.log(nameLetter);
+  // console.log(nameLetter);
 
   const handleDashboardRedirect = () => {
     if (userInfo?.data?.role === "admin") {
@@ -71,7 +71,7 @@ export default function UserMenu() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger id = "user-toggle-menu" asChild>
+      <DropdownMenuTrigger id="user-toggle-menu" asChild>
         <Button variant="ghost" className="h-auto p-0 hover:bg-transparent">
           <Avatar>
             <AvatarImage src="./avatar.jpg" alt="Profile image" />

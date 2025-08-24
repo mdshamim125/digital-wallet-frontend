@@ -1,8 +1,20 @@
 import { useNavigate } from "react-router";
 import HeroImage from "@/assets/images/HeroImage.jpg";
+import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  const { data: userInfo } = useUserInfoQuery(undefined);
+
+  const handleDashboardRedirect = () => {
+    if (userInfo?.data?.role === "admin") {
+      navigate("/admin");
+    } else if (userInfo?.data?.role === "agent") {
+      navigate("/agent");
+    } else {
+      navigate("/user"); // default user dashboard
+    }
+  };
 
   return (
     <section className="min-h-screen flex flex-col justify-center items-center text-center py-6 px-6 sm:px-12">
@@ -14,7 +26,10 @@ const HeroSection = () => {
         money seamlessly anytime, anywhere.
       </p>
       <div className="flex flex-col sm:flex-row gap-4">
-        <button className="px-4 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+        <button
+          onClick={handleDashboardRedirect}
+          className="px-4 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+        >
           Get Started
         </button>
         <button

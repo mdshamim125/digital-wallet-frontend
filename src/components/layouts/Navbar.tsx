@@ -35,7 +35,10 @@ const navigationLinks = [
 
 export default function Navbar() {
   return (
-    <header id="nav-menu" className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b shadow-sm">
+    <header
+      id="nav-menu"
+      className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b shadow-sm"
+    >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Left side */}
@@ -76,15 +79,11 @@ export default function Navbar() {
                   </svg>
                 </Button>
               </PopoverTrigger>
-              <PopoverContent align="start" className="w-36 p-1 md:hidden">
+              <PopoverContent align="start" className="w-36 p-1  md:hidden">
                 <NavigationMenu className="max-w-none *:w-full">
                   <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
                     {navigationLinks.map((link, index) => (
-                      <NavigationMenuItem
-                        
-                        key={index}
-                        className="w-full"
-                      >
+                      <NavigationMenuItem key={index} className="w-full">
                         <NavigationMenuLink className="py-1.5">
                           <Link to={link.href}>{link.label}</Link>
                         </NavigationMenuLink>
@@ -106,7 +105,7 @@ export default function Navbar() {
                     <NavigationMenuItem key={index}>
                       <NavigationMenuLink
                         asChild
-                        className="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                        className="text-muted-foreground text-lg hover:text-blue-600 py-1.5 font-medium"
                       >
                         <Link to={link.href}>{link.label}</Link>
                       </NavigationMenuLink>
@@ -118,7 +117,7 @@ export default function Navbar() {
           </div>
 
           {/* Right side */}
-          <div  className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
             <ModeToggle />
             <UserMenu />
           </div>

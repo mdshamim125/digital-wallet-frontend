@@ -26,7 +26,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const data = {
     navMain: getSidebarItems(userInfo?.data?.role as TRole),
   };
-  console.log("Sidebar userInfo:", userInfo);
+  // console.log("Sidebar userInfo:", userInfo);
   const handleGoHome = () => {
     navigate("/");
   };

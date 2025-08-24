@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
@@ -23,6 +22,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Filter } from "lucide-react";
+import SkeletonTable from "@/components/SkeletonTable";
 
 interface FilterForm {
   type: string;
@@ -51,7 +51,7 @@ export default function TransactionHistory() {
 
   const transactionData = data?.data;
 
-  console.log(data);
+  // console.log(data);
 
   const onSubmit = (values: FilterForm) => {
     const payload: Record<string, string> = {};
@@ -62,7 +62,7 @@ export default function TransactionHistory() {
     setFilters(payload);
     setPage(1); // reset page to 1 after filtering
   };
-
+  console.log(setLimit);
   useEffect(() => {
     if (error) {
       toast.error("Failed to fetch transactions");
@@ -82,6 +82,10 @@ export default function TransactionHistory() {
   const handlePrevious = () => setPage((prev) => Math.max(prev - 1, 1));
   const handleNext = () => setPage((prev) => Math.min(prev + 1, totalPage));
 
+  if (isLoading) {
+    return <SkeletonTable />;
+  }
+
   return (
     <div className="p-6 bg-white dark:bg-gray-900 rounded-2xl shadow-lg">
       <h2 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">
@@ -89,7 +93,8 @@ export default function TransactionHistory() {
       </h2>
 
       {/* Filter Form */}
-      <form id="table-filter"
+      <form
+        id="table-filter"
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-1 md:grid-cols-6 gap-3 items-center bg-gray-100 dark:bg-gray-800 p-4 rounded-xl mb-6 shadow-sm"
       >

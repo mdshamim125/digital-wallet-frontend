@@ -18,7 +18,7 @@ const ContactForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Simulate form submission
-    console.log(formData);
+    // console.log(formData);
     setSubmitted(true);
   };
   return (
