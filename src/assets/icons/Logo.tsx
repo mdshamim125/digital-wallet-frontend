@@ -3,10 +3,13 @@ import logo from "../images/logo.jpg";
 
 const Logo = () => {
   return (
-    <div className="flex justify-center text-blue-600 items-center font-bold text-2xl">
+    <Link
+      to="/"
+      className="flex justify-center text-blue-600 items-center font-bold text-2xl"
+    >
       <img src={logo} className="h-20 w-20 rounded-full p-4" alt="logo-image" />
-      <Link to="/">M-CASH</Link>
-    </div>
+      <p>M-CASH</p>
+    </Link>
   );
 };
 

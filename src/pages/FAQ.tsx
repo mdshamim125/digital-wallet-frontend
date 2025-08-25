@@ -54,7 +54,10 @@ const FAQ = () => {
   return (
     <section className="bg-gray-50 dark:bg-gray-900 min-h-screen px-6 py-12">
       <div className="max-w-4xl mx-auto">
-        <h1 id="faq" className="text-3xl font-bold text-gray-800 dark:text-white mb-8">
+        <h1
+          id="faq"
+          className="text-3xl font-bold text-gray-800 dark:text-white mb-8"
+        >
           Frequently Asked Questions
         </h1>
         <div className="space-y-4">
@@ -69,14 +72,19 @@ const FAQ = () => {
                   {faq.q}
                 </h3>
                 {openIndex === idx ? (
-                  <ChevronUp className="w-5 h-5 text-gray-500" />
+                  <ChevronUp className="w-5 h-5 text-gray-500 transition-transform duration-100" />
                 ) : (
-                  <ChevronDown className="w-5 h-5 text-gray-500" />
+                  <ChevronDown className="w-5 h-5 text-gray-500 transition-transform duration-100" />
                 )}
               </div>
-              {openIndex === idx && (
-                <p className="mt-2 text-gray-600 dark:text-gray-300">{faq.a}</p>
-              )}
+
+              <div
+                className={`transition-all duration-500 overflow-hidden ${
+                  openIndex === idx ? "max-h-40 mt-2" : "max-h-0"
+                }`}
+              >
+                <p className="text-gray-600 dark:text-gray-100">{faq.a}</p>
+              </div>
             </div>
           ))}
         </div>

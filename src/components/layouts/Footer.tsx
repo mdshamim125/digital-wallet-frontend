@@ -8,9 +8,7 @@ export default function Footer() {
           {/* Left side with Logo and description */}
           <div className="w-full -mx-6 lg:w-2/5">
             <div className="px-6">
-              <a href="/">
-                <Logo />
-              </a>
+              <Logo />
 
               <p className="max-w-sm mt-3 text-gray-500 dark:text-gray-400">
                 Digital Wallet Management – a secure and seamless way to manage

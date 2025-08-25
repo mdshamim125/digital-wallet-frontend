@@ -63,25 +63,40 @@ export default function Profile() {
   }, [profileInfo, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Prepare payload with only filled fields
-    const payload: Partial<typeof values> = {};
+    if (!profileInfo?.data) return;
+
+    // Compare new values with existing profile info
+    const changedFields: Partial<typeof values> = {};
 
     Object.keys(values).forEach((key) => {
-      const value = values[key as keyof typeof values];
-      if (value && value.trim() !== "") {
-        // Only send oldPassword if password is being changed
-        if (key === "oldPassword" && !values.password) return;
-        payload[key as keyof typeof values] = value;
+      const field = key as keyof typeof values;
+      const newValue = values[field]?.trim() || "";
+      const oldValue =
+        field === "password" || field === "oldPassword"
+          ? "" // Passwords are not pre-filled
+          : (profileInfo.data[field] || "").trim();
+
+      if (newValue && newValue !== oldValue) {
+        // Only add if value changed
+        changedFields[field] = newValue;
       }
+
+      // Only send oldPassword if password is being changed
+      if (field === "oldPassword" && !values.password)
+        delete changedFields.oldPassword;
     });
 
+    if (Object.keys(changedFields).length === 0) {
+      toast.error("Update your information first");
+      return;
+    }
+
     try {
-      const result = await updateProfile(payload).unwrap();
-      console.log("Profile updated successfully:", result);
+      const result = await updateProfile(changedFields).unwrap();
+      console.log(result);
       toast.success("Profile updated successfully");
       refetch();
     } catch (error: any) {
-      console.error("Failed to update profile:", error);
       toast.error(error?.data?.message || "Failed to update profile");
     }
   }

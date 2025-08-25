@@ -96,9 +96,9 @@ export default function Navbar() {
 
             {/* Main nav */}
             <div className="flex items-center gap-6">
-              <Link to="/" className="text-primary hover:text-primary/90">
+              <div className="text-primary hover:text-primary/90">
                 <Logo />
-              </Link>
+              </div>
               <NavigationMenu className="max-md:hidden">
                 <NavigationMenuList className="gap-2">
                   {navigationLinks.map((link, index) => (
