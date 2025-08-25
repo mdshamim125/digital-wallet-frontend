@@ -10,6 +10,7 @@ export const transactionApi = baseApi.injectEndpoints({
         method: "POST",
         data: amountInfo,
       }),
+      invalidatesTags: ["Transaction", "TransactionOverview"],
     }),
 
     //Deposit money (via agent cash-in simulation)
@@ -19,6 +20,7 @@ export const transactionApi = baseApi.injectEndpoints({
         method: "POST",
         data: amountInfo,
       }),
+      invalidatesTags: ["Transaction", "TransactionOverview"],
     }),
 
     //Withdraw money
@@ -28,6 +30,7 @@ export const transactionApi = baseApi.injectEndpoints({
         method: "POST",
         data: amountInfo,
       }),
+      invalidatesTags: ["Transaction", "TransactionOverview"],
     }),
 
     //agent transaction
@@ -38,6 +41,7 @@ export const transactionApi = baseApi.injectEndpoints({
         method: "POST",
         data: amountInfo,
       }),
+      invalidatesTags: ["Transaction", "TransactionOverview"],
     }),
 
     //Withdraw money from a user’s wallet
@@ -47,7 +51,7 @@ export const transactionApi = baseApi.injectEndpoints({
         method: "POST",
         data: amountInfo,
       }),
-      // invalidatesTags: ["User"],
+      invalidatesTags: ["Transaction", "TransactionOverview"],
     }),
 
     //Transaction history
@@ -58,6 +62,7 @@ export const transactionApi = baseApi.injectEndpoints({
         method: "GET",
         params,
       }),
+      providesTags: ["Transaction"],
     }),
 
     //admin api
@@ -66,8 +71,9 @@ export const transactionApi = baseApi.injectEndpoints({
       query: (params: Record<string, string>) => ({
         url: "/transaction/all-transactions",
         method: "GET",
-        params, // Pass filters, pagination, search as query params
+        params,
       }),
+      providesTags: ["Transaction"],
     }),
   }),
 });

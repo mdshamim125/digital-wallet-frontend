@@ -41,7 +41,7 @@ export const userApi = baseApi.injectEndpoints({
         url: "/user/user-overview",
         method: "GET",
       }),
-      providesTags: ["User"],
+      providesTags: ["Transaction"],
     }),
 
     getAgentOverview: builder.query({
@@ -49,14 +49,14 @@ export const userApi = baseApi.injectEndpoints({
         url: "/user/agent-overview",
         method: "GET",
       }),
-      providesTags: ["User"],
+      providesTags: ["TransactionOverview"],
     }),
     getAdminOverview: builder.query({
       query: () => ({
         url: "/user/admin-overview",
         method: "GET",
       }),
-      providesTags: ["User"],
+      providesTags: ["Transaction"],
     }),
   }),
 });

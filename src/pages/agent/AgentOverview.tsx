@@ -59,29 +59,35 @@ export default function AgentOverview() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <ul className="divide-y">
-            {data?.data?.recentActivity?.map((tx: any) => (
-              <li key={tx._id} className="flex justify-between py-3 text-sm">
-                <div>
-                  <p className="capitalize font-medium">
-                    {tx.type.replace("_", " ")}
+          {data?.data?.recentActivity && data.data.recentActivity.length > 0 ? (
+            <ul className="divide-y">
+              {data.data.recentActivity.map((tx: any) => (
+                <li key={tx._id} className="flex justify-between py-3 text-sm">
+                  <div>
+                    <p className="capitalize font-medium">
+                      {tx.type.replace("_", " ")}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {new Date(tx.createdAt).toLocaleString()}
+                    </p>
+                  </div>
+                  <p
+                    className={`font-bold ${
+                      tx.type.includes("withdraw")
+                        ? "text-red-600"
+                        : "text-green-600"
+                    }`}
+                  >
+                    ${tx.amount}
                   </p>
-                  <p className="text-xs text-gray-500">
-                    {new Date(tx.createdAt).toLocaleString()}
-                  </p>
-                </div>
-                <p
-                  className={`font-bold ${
-                    tx.type.includes("withdraw")
-                      ? "text-red-600"
-                      : "text-green-600"
-                  }`}
-                >
-                  ${tx.amount}
-                </p>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-center text-xl py-4 text-gray-500 dark:text-gray-400">
+              You have no recent transactions.
+            </p>
+          )}
         </CardContent>
       </Card>
     </div>
